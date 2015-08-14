@@ -3,21 +3,29 @@ import split_dataset
 
 def chooseBestFeatureToSplit(dataset):
 	numFeatures = len(dataset[0])
+	
 	baseEntropy = entropy_shannon.calcShannonEnt(dataset);
+	print "baseEntropy",baseEntropy
+	
 	bestInfoGain = 0.0
 	bestFeature = -1
+	
 	for i in range(numFeatures):
 		featList = [example[i] for example in dataset]
-		uniqueVals = set(featList)	
+		uniqueVals = set(featList)
 		newEntorpy = 0.0
+		
 		for value in uniqueVals:
 			subDataSet = split_dataset.splitDataSet(dataset,i,value)
 			prob = len(subDataSet) / float(len(dataset))
 			newEntorpy += prob * entropy_shannon.calcShannonEnt(subDataSet)
+			
 		infoGain = baseEntropy - newEntorpy
+		print "infoGain for " + str(i) + " : " + str(infoGain)
 		if(infoGain > bestInfoGain):
 			bestInfoGain = infoGain
 			bestFeature = i
+			
 	return bestFeature
 	
 if __name__ == '__main__':
@@ -33,5 +41,6 @@ if __name__ == '__main__':
 		["eray", "arslan", "sakarya"],
 		["ss", "dd", "izmir"],
 		["yunus", "kocyigit", "kocaeli"]]
-	print chooseBestFeatureToSplit(dataset)
+	res = chooseBestFeatureToSplit(dataset)
+	print "bestFeature",res
 	
