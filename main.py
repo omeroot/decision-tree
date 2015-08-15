@@ -13,6 +13,7 @@ def chooseBestFeatureToSplit(dataset):
 	for i in range(numFeatures):
 		featList = [example[i] for example in dataset]
 		uniqueVals = set(featList)
+		#print "uniqueVals",uniqueVals
 		newEntorpy = 0.0
 		
 		for value in uniqueVals:
@@ -21,7 +22,7 @@ def chooseBestFeatureToSplit(dataset):
 			newEntorpy += prob * entropy_shannon.calcShannonEnt(subDataSet)
 			
 		infoGain = baseEntropy - newEntorpy
-		print "infoGain for " + str(i) + " : " + str(infoGain)
+		print "infoGain & entropy for " + str(i) + " => " + str(infoGain)+ " " + str(newEntorpy)
 		if(infoGain > bestInfoGain):
 			bestInfoGain = infoGain
 			bestFeature = i

@@ -7,11 +7,11 @@ def calcShannonEnt(dataset) :
 	labelCounts = {}
 	
 	for key in dataset:
-		currentLabel = key[-1];
+		currentLabel = key[0];
 		if key not in labelCounts.keys():
 			labelCounts[currentLabel] = 0
 		labelCounts[currentLabel] += 1
-			
+		
 	shannonEnt = 0.0
 	for key in labelCounts:
 		p = float(labelCounts[key])/numEntries
