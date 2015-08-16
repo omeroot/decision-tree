@@ -15,8 +15,6 @@ for i in np.arange(1,n_features + 1):
 	dt.fit(x[training], y[training])
 	preds = dt.predict(x[~training])
 	accuracies.append((preds == y[~training]).mean())
-	
-print accuracies
 
 f,ax = plt.subplots(figsize=(7,5))
 ax.plot(range(1,n_features + 1), accuracies, color = 'k')

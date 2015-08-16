@@ -1,5 +1,6 @@
 import entropy_shannon
 import split_dataset
+import operator
 
 def chooseBestFeatureToSplit(dataset):
 	numFeatures = len(dataset[0])
@@ -28,6 +29,37 @@ def chooseBestFeatureToSplit(dataset):
 			bestFeature = i
 			
 	return bestFeature
+	
+def majorityCnt(classList):
+	classCounter = {};
+	for key in classList:
+		if key not in classCount.keys():
+			classCount[key] = 0
+		classCount[key] += 1;
+	sortedClassList = sorted(classCount.iteritems(),
+		key = operator.itemgetter(1),reverse = True)
+	return sortedClassList[0][0]
+	
+def createTree(dataset,labels):
+	classList = [example[-1] for example in dataset]
+	if classList.count(classList[0]) == len(classList):
+		return classList[0]
+	if len(dataset[0]) == 1:
+		majorityCnt(classList)
+	bestFeat = chooseBestFeatureToSplit(dataset)
+	bestFeatLabel = labels[bestFeat]
+	myTree = {}
+	myTree = { bestFeatLabel : {}}
+	del (labels[bestFeat])
+	featValues = [example[bestFeat] for example in dataset]
+	uniqueVals = set(featValues)
+	for value in uniqueVals:
+		subLabels = labels[ : ]
+		myTree[bestFeatLabel][value] = createTree(split_dataset.splitDataSet
+			(dataset,bestFeat,value),subLabels)
+		
+	return myTree
+	
 	
 if __name__ == '__main__':
 	dataset = [["omer", "demircan", "kocaeli"],
