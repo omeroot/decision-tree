@@ -1,6 +1,7 @@
 import entropy_shannon
 import split_dataset
 import operator
+import treeplotter
 
 def chooseBestFeatureToSplit(dataset):
 	numFeatures = len(dataset[0])
@@ -74,6 +75,7 @@ if __name__ == '__main__':
 		["eray", "arslan", "sakarya"],
 		["ss", "dd", "izmir"],
 		["yunus", "kocyigit", "kocaeli"]]
-	res = chooseBestFeatureToSplit(dataset)
-	print "bestFeature",res
+	tree = createTree(dataset,["ad","soyad","sehir"])
+	myTree = treeplotter.retrieveTree ( 0 )
+	treeplotter.createPlot(myTree)
 	
